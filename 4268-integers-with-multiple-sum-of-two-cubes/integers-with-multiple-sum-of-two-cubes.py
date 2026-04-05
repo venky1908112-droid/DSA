@@ -2,9 +2,7 @@ from collections import defaultdict
 class Solution(object):
     def findGoodIntegers(self, n):
         cube_pair = defaultdict(int)
-
         res = []
-
         a = 1
         while a ** 3 <= n:
             b = a
