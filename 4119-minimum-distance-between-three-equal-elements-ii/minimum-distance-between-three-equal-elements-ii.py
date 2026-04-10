@@ -1,11 +1,11 @@
-from collections import deque, defaultdict
+from collections import defaultdict
 class Solution:
     def minimumDistance(self, nums: List[int]) -> int:
-        indxs = defaultdict(lambda :deque(maxlen = 3))
+        indx = defaultdict(list)
         mn = float('inf')
-        for i,v in enumerate(nums):
-            indxs[v].append(i)
-            if len(indxs[v]) == 3:
-                f,_, t = indxs[v]
-                mn = min(mn, (t - f) * 2)
-        return -1 if float('inf') == mn else mn
+        for i, val in enumerate(nums):
+            indx[val].append(i)
+            if len(indx[val]) >= 3:
+                f, _, l = indx[val][-3:]
+                mn = min(mn, (l - f) * 2)
+        return -1 if mn == float('inf') else mn
