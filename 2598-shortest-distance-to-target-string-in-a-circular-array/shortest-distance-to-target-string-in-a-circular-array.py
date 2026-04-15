@@ -1,19 +1,13 @@
 class Solution(object):
     def closestTarget(self, words, target, startIndex):
         n = len(words)
-        left = right = 0
-        left_done = right_done = False
-        if target not in words:
-            return -1
-        for i in range(startIndex, startIndex + n):
-            if words[i % n] != target:
-                right += 1
-            else:
-                break
-        for i in range(startIndex, startIndex - n, -1):
-            if words[(i + n) % n] != target:
-                left += 1
-            else:
-                break
+        ans = float('inf')
+        
+        for i in range(n):
+            if words[i] == target:
+                dist = abs(i - startIndex)
+                ans = min(ans, min(dist, n - dist))
+        
+        return ans if ans != float('inf') else -1
                 
         return min(right,left)
