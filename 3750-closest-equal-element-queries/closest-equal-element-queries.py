@@ -1,36 +1,35 @@
 from collections import defaultdict
-from bisect import bisect_left
+from typing import List
 
 class Solution:
     def solveQueries(self, nums: List[int], queries: List[int]) -> List[int]:
         d = defaultdict(list)
+        n = len(nums)
         
-        # Build index map
+        # Step 1: store indices of each value
         for i, x in enumerate(nums):
             d[x].append(i)
         
-        n = len(nums)
-        res = [-1] * len(queries)
+        # Step 2: precompute answers for every index
+        ans = [-1] * n
         
-        for i, q in enumerate(queries):
-            lst = d[nums[q]]
+        for val in d:
+            lst = d[val]
+            k = len(lst)
             
-            if len(lst) == 1:
+            if k == 1:
                 continue
             
-            # Find position of q in lst
-            pos = bisect_left(lst, q)
-            
-            # Previous index (circular)
-            prev_idx = lst[pos - 1] if pos > 0 else lst[-1]
-            
-            # Next index (circular)
-            next_idx = lst[pos + 1] if pos < len(lst) - 1 else lst[0]
-            
-            # Compute circular distances
-            d1 = abs(q - prev_idx)
-            d2 = abs(next_idx - q)
-            
-            res[i] = min(d1, n - d1, d2, n - d2)
+            for i in range(k):
+                cur = lst[i]
+                
+                prev = lst[i - 1] if i > 0 else lst[-1]
+                next_ = lst[i + 1] if i < k - 1 else lst[0]
+                
+                d1 = abs(cur - prev)
+                d2 = abs(next_ - cur)
+                
+                ans[cur] = min(d1, n - d1, d2, n - d2)
         
-        return res
+        # Step 3: answer queries in O(1)
+        return [ans[q] for q in queries]
