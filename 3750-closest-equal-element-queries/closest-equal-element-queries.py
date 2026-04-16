@@ -1,38 +1,36 @@
 from collections import defaultdict
+from bisect import bisect_left
+
 class Solution:
     def solveQueries(self, nums: List[int], queries: List[int]) -> List[int]:
         d = defaultdict(list)
-        for i,x in enumerate(nums):
-            d[x].append(i)
-        res = [-1] * len(queries)
-        for i,query in enumerate(queries):
-            n = len(d[nums[query]])
-            if n > 1:
-                mn = float('inf')
-                lst = d[nums[query]]
-                left = 0
-                right = n - 1
-                while left <= right:
-                    mid = (left + right) // 2
-                    if lst[mid] == query:
-                        if mid > 0:
-                            dist = lst[mid] - lst[mid - 1]
-                            mn = min(mn, dist, len(nums) - dist)
-                        else:
-                            dist = lst[-1] - lst[mid]
-                            mn = min(mn, dist, len(nums) - dist)
-                        if mid < n - 1:
-                            dist = lst[mid + 1] - lst[mid]
-                            mn = min(mn, dist, len(nums) - dist)
-                        else:
-                            dist = lst[mid] - lst[0]
-                            mn = min(mn, dist, len(nums) - dist)
-                        res[i] = mn
-                        break
-                    if lst[mid] < query:
-                        left = mid + 1
-                    else:
-                        right = mid - 1
-                
-        return res
         
+        # Build index map
+        for i, x in enumerate(nums):
+            d[x].append(i)
+        
+        n = len(nums)
+        res = [-1] * len(queries)
+        
+        for i, q in enumerate(queries):
+            lst = d[nums[q]]
+            
+            if len(lst) == 1:
+                continue
+            
+            # Find position of q in lst
+            pos = bisect_left(lst, q)
+            
+            # Previous index (circular)
+            prev_idx = lst[pos - 1] if pos > 0 else lst[-1]
+            
+            # Next index (circular)
+            next_idx = lst[pos + 1] if pos < len(lst) - 1 else lst[0]
+            
+            # Compute circular distances
+            d1 = abs(q - prev_idx)
+            d2 = abs(next_idx - q)
+            
+            res[i] = min(d1, n - d1, d2, n - d2)
+        
+        return res
