@@ -10,10 +10,7 @@ class Solution:
                     res += '1'
                 else:
                     for x in s[i:]:
-                        if x == '0':
-                            res += '0'
-                        else:
-                            res += '1'
+                        res += '0' if x == '0' else '1'
                     break
             else:
                 if zero_count > 0:
@@ -21,9 +18,6 @@ class Solution:
                     res += '1'
                 else:
                     for x in s[i:]:
-                        if x == '1':
-                            res += '0'
-                        else:
-                            res += '1'
+                        res += '0' if x == '1' else '1'
                     break
         return res
