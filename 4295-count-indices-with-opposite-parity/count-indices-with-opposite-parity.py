@@ -1,15 +1,13 @@
 class Solution:
     def countOppositeParity(self, nums: list[int]) -> list[int]:
         n = len(nums)
-        res = []
-        def isodd(n):
-            return n & 1
-        for i in range(n):
-            count = 0
-            for j  in range(n - 1, i - 1, -1):
-                if isodd(nums[i]) != isodd(nums[j]):
-                    count += 1
-            res.append(count)
-
+        res = [0] * n
+        odd_count = even_count = 0
+        for i in range(n - 1 , -1, -1):
+            if nums[i] & 1:
+                res[i] = even_count
+                odd_count += 1
+            else:
+                res[i] = odd_count
+                even_count += 1
         return res
-            
