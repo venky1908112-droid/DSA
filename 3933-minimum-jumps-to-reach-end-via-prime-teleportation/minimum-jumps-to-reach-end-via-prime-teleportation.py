@@ -1,27 +1,27 @@
 from collections import deque, defaultdict
 class Solution:
     limit = 10 ** 6 + 1
-    grid = [True] * limit
-    grid[0] = grid[1] = False
+
+    primes = [True] * limit 
+    primes[0] = primes[1] = False
     p = 2
-    while p * p <= limit:
-        if grid[p]:
+    while p * p < limit:
+        if primes[p]:
             for multiple in range(p * p, limit, p):
-                grid[multiple] = False
+                primes[multiple] = False
         p += 1
     
     def minJumps(self, nums: List[int]) -> int:
-        n = len(nums) 
+        n = len(nums)
         if n == 1:
             return 0
         visited = [False] * n
-        q = deque()
-        mp = defaultdict(list)
         max_val = -1
+        mp = defaultdict(list)
         for i, x in enumerate(nums):
             mp[x].append(i)
             max_val = max(max_val, x)
-        q.append((0, 0))
+        q = deque([(0, 0)]) # (idx, steps)
         visited[0] = True
         seen = set()
         while q:
@@ -29,14 +29,16 @@ class Solution:
 
             if i == n - 1:
                 return s
-            
+
             if i - 1 >= 0 and not visited[i - 1]:
-                visited[i - 1] = True
                 q.append((i - 1, s + 1))
+                visited[i - 1] = True
+            
             if i + 1 < n and not visited[i + 1]:
-                visited[i + 1] = True
                 q.append((i + 1, s + 1))
-            if not self.grid[nums[i]] or nums[i] in seen:
+                visited[i + 1] = True
+            
+            if not self.primes[nums[i]] or nums[i] in seen:
                 continue
             
             for multiple in range(nums[i], max_val + 1, nums[i]):
@@ -46,5 +48,4 @@ class Solution:
                     if not visited[idx]:
                         visited[idx] = True
                         q.append((idx, s + 1))
-            seen.add(nums[i])  
-
+            seen.add(nums[i])
