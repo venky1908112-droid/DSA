@@ -1,57 +1,34 @@
-from typing import List
-
 class Solution:
     def rotateGrid(self, grid: List[List[int]], k: int) -> List[List[int]]:
-        m, n = len(grid), len(grid[0])
-        layers = min(m, n) // 2
-
+        m = len(grid)
+        n = len(grid[0])
+        layers = min(m , n) // 2
         for layer in range(layers):
-            elems = []
-
-            top, left = layer, layer
-            bottom, right = m - layer - 1, n - layer - 1
-
-            # top row
+            vals = []
+            top = left = layer
+            bottom = m - layer - 1
+            right = n - layer - 1
             for j in range(left, right + 1):
-                elems.append(grid[top][j])
-
-            # right column
-            for i in range(top + 1, bottom):
-                elems.append(grid[i][right])
-
-            # bottom row
+                vals.append(grid[top][j])
+            for j in range(top + 1, bottom):
+                vals.append(grid[j][right])
             for j in range(right, left - 1, -1):
-                elems.append(grid[bottom][j])
-
-            # left column
-            for i in range(bottom - 1, top, -1):
-                elems.append(grid[i][left])
-
-            # rotate left by k
-            length = len(elems)
-            r = k % length
-            rotated = elems[r:] + elems[:r]
-
+                vals.append(grid[bottom][j])
+            for j in range(bottom - 1, top, -1):
+                vals.append(grid[j][left])
+            r = k % len(vals)
+            vals = vals[r:] + vals[:r]
             idx = 0
-
-            # put back top row
             for j in range(left, right + 1):
-                grid[top][j] = rotated[idx]
+                grid[top][j] = vals[idx]
                 idx += 1
-
-            # put back right column
-            for i in range(top + 1, bottom):
-                grid[i][right] = rotated[idx]
+            for j in range(top + 1, bottom):
+                grid[j][right] = vals[idx]
                 idx += 1
-
-            # put back bottom row
             for j in range(right, left - 1, -1):
-                grid[bottom][j] = rotated[idx]
+                grid[bottom][j] = vals[idx]
                 idx += 1
-
-            # put back left column
-            for i in range(bottom - 1, top, -1):
-                grid[i][left] = rotated[idx]
+            for j in range(bottom - 1, top , -1):
+                grid[j][left] = vals[idx]
                 idx += 1
-
         return grid
