@@ -1,14 +1,15 @@
+from collections import defaultdict
 class Solution:
     def findThePrefixCommonArray(self, a: List[int], b: List[int]) -> List[int]:
-        seen = set()
+        visited = defaultdict(int)
         res = []
-        common = 0
+        common= 0
         for x, y in zip(a, b):
-            if x in seen:
+            if visited[x] == 1:
                 common += 1
-            seen.add(x)
-            if y in seen:
+            visited[x] += 1
+            if visited[y] == 1:
                 common += 1
-            seen.add(y)
+            visited[y] += 1
             res.append(common)
         return res
