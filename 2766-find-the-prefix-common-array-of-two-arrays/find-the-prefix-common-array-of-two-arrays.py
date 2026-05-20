@@ -1,7 +1,7 @@
 from collections import defaultdict
 class Solution:
     def findThePrefixCommonArray(self, a: List[int], b: List[int]) -> List[int]:
-        visited = defaultdict(int)
+        visited = [0] * (len(a) + 1)
         res = []
         common= 0
         for x, y in zip(a, b):
