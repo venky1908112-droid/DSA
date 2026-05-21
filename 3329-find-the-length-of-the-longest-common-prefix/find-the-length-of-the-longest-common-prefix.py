@@ -5,13 +5,11 @@ class Solution:
             while x > 0:
                 possible.add(x)
                 x //= 10
-        ans = 0
+        longest = 0
         for x in arr2:
             while x > 0:
-
                 if x in possible:
-                    ans = max(ans, len(str(x)))
+                    longest = max(longest, len(str(x)))
                     break
-                
                 x //= 10
-        return ans
+        return longest
