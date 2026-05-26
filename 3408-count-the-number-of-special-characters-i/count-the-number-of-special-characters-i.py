@@ -1,10 +1,9 @@
 class Solution:
     def numberOfSpecialChars(self, word: str) -> int:
-        lower = 0
-        upper = 0
-        for letter in word:
+        vals = set(word)
+        special = 0
+        for letter in vals:
             if 'a' <= letter <= 'z':
-                lower |= 1 << (ord(letter) - ord('a'))
-            else:
-                upper |= 1 << (ord(letter) - ord('A'))
-        return (lower & upper).bit_count()
+                if chr(ord(letter) - 32) in vals:
+                    special += 1
+        return special
