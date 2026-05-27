@@ -3,14 +3,11 @@ class Solution:
         special = 0
         lowercase = {}
         uppercase = {}
-        visited = 0
         for i, letter in enumerate(word):
             if 'a' <= letter <= 'z':
                 lowercase[letter] = i
-            else:
-                if not (visited >> (ord(letter) - 65)) & 1:
-                    uppercase[letter] = i
-                    visited |= 1 << (ord(letter) - 65)
+        for i in range(len(word)- 1, -1, -1):
+            uppercase[word[i]] = i
         for character, index in uppercase.items():
             lwr = chr(ord(character) + 32)
             if lwr not in lowercase:
