@@ -7,7 +7,8 @@ class Solution:
             if 'a' <= letter <= 'z':
                 lowercase[letter] = i
         for i in range(len(word)- 1, -1, -1):
-            uppercase[word[i]] = i
+            if 'A' <= word[i] <= 'Z':
+                uppercase[word[i]] = i
         for character, index in uppercase.items():
             lwr = chr(ord(character) + 32)
             if lwr not in lowercase:
