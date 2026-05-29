@@ -15,4 +15,8 @@ class Solution:
             if lowercase[letter.lower()] < index:
                 special += 1
         return special
+<<<<<<< HEAD
         
+=======
+        
+>>>>>>> 9eef968909391a505484bb097e3bf91041717529
