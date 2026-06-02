@@ -12,8 +12,6 @@ class Solution:
             if not root:
                 return depth
             m = 0
-            if not root.children:
-                return 1
             for child in root.children:
                 m = max(m, dfs(child, depth + 1))
             return m + 1
