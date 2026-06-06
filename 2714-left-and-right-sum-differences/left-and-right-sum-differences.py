@@ -1,13 +1,13 @@
 class Solution:
     def leftRightDifference(self, nums: List[int]) -> List[int]:
         n = len(nums)
-        prefix = [0]
-        suffix = [0] * n
-        for i in range(1,n):
-            prefix.append(prefix[i - 1] + nums[i - 1])
-        for j in range(n - 2, -1 , -1):
-            suffix[j] = suffix[j + 1] + nums[j + 1]
+        left = [0]
+        right = [0] * n
+        for i in range(1, n):
+            left.append(left[i - 1] + nums[i - 1])
+        for i in range(n - 2, -1, -1):
+            right[i] = right[i + 1] + nums[i + 1]
         ans = []
-        for a, b in zip(prefix, suffix):
+        for a,b in zip(left, right):
             ans.append(abs(a - b))
-        return ans        
+        return ans
