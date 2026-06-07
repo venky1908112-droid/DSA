@@ -1,4 +1,3 @@
-
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -14,14 +13,14 @@ class Solution:
                 nodes[parent] = TreeNode(parent)
             if child not in nodes:
                 nodes[child] = TreeNode(child)
-            
             if isleft:
                 nodes[parent].left = nodes[child]
             else:
                 nodes[parent].right = nodes[child]
             children.add(child)
-        for parent ,_ , _ in descriptions:
+        for parent,_, _ in descriptions:
             if parent not in children:
                 root = nodes[parent]
                 break
         return root
+        
