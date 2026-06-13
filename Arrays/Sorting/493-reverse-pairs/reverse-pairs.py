@@ -1,6 +1,15 @@
 class Solution:
     def reversePairs(self, nums: List[int]) -> int:
         def merge(nums, low, mid, high):
+            pairs = 0
+            left = low
+            right = mid + 1
+            while left <= mid and right <= high:
+                if nums[left] > nums[right] * 2:
+                    pairs += mid + 1 - left
+                    right += 1
+                else:
+                    left += 1
             temp = []
             left = low
             right = mid + 1
@@ -17,21 +26,10 @@ class Solution:
             while right <= high:
                 temp.append(nums[right])
                 right += 1
-            i = low
-            j = mid + 1
-            pairs = 0
-            while i <= mid and j <= high:
-                if nums[i] > 2 * nums[j]:
-                    pairs += (mid + 1) - i
-                    j += 1
-                else:
-                    i += 1
-                    
-
             for i in range(low, high + 1):
                 nums[i] = temp[i - low]
-            
             return pairs
+
 
         def mergesort(nums, low, high):
             pairs = 0
@@ -42,4 +40,5 @@ class Solution:
             pairs += mergesort(nums, mid + 1, high)
             pairs += merge(nums, low, mid, high)
             return pairs
+        
         return mergesort(nums, 0, len(nums) - 1)
