@@ -16,9 +16,6 @@ class DLL:
     
     def insert(self, key, value):
         node = Node(key, value)
-        if len(self.mp) == 0:
-            node.next = self.last
-            self.last.prev = node
         self.mp[key] = node
         node.prev = self.first
         node.next = self.first.next
