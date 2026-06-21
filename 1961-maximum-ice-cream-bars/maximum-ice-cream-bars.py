@@ -5,13 +5,12 @@ class Solution:
         for x in costs:
             count[x] += 1
         ans = 0
-        for price, x in enumerate(count):
-            if x == 0:
+        for price, freq in enumerate(count):
+            if freq == 0:
                 continue
             if coins < price:
                 break
-            buy = min(coins // price, x)
-            ans += buy 
+            buy = min(coins // price, freq)
+            ans += buy
             coins -= buy * price
-
         return ans
