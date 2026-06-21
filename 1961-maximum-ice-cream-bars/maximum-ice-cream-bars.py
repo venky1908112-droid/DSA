@@ -4,8 +4,8 @@ class Solution:
         ans = 0
         for x in costs:
             if coins >= x:
-                ans += 1
                 coins -= x
+                ans += 1
             else:
                 break
         return ans
