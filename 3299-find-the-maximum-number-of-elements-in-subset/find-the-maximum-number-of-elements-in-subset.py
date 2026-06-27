@@ -3,9 +3,8 @@ class Solution:
     def maximumLength(self, nums: List[int]) -> int:
         freq = Counter(nums)
         one_count = freq[1]
-        if one_count > 0:
-            if not one_count & 1:
-                one_count -= 1
+        if not one_count & 1:
+            one_count -= 1
         ans = one_count
         del freq[1]
         curr_ans = 0
