@@ -6,7 +6,5 @@ class Solution:
             if nums[i] - nums[i - 1] > maxDiff:
                 cmpn += 1
             component[i] = cmpn
-        res = []
-        for u, v in queries:
-            res.append(component[u] == component[v])
-        return res
+        
+        return [component[u] == component[v] for u, v in queries]
