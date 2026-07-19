@@ -1,20 +1,19 @@
 class Solution:
     def smallestSubsequence(self, s: str) -> str:
-        def c_t_i(c):
-            return ord(c) - 97
-        stack = []
-        last_index = [-1] * 26
-        for i,x in enumerate(s):
-            last_index[ord(x) - 97] = i
-        visited = [False] * 26
+        last = [-1] * 26
         for i, x in enumerate(s):
-            if visited[c_t_i(x)]:
-                continue
+            last[ord(x) - ord('a')] = i
+        visited = [False] * 26
+        stack = []
+        for i, x in enumerate(s):
+            idx = ord(x) - ord('a')
 
-            while stack and last_index[c_t_i(stack[-1])] > i and stack[-1] > x:
-                visited[c_t_i(stack.pop())] = False
+            if visited[idx]:
+                continue
+            
+            while stack and stack[-1] > x and last[ord(stack[-1]) - ord('a')] > i:
+                visited[ord(stack.pop()) - ord('a')] = False
 
             stack.append(x)
-            visited[c_t_i(x)] = True
+            visited[idx] = True
         return ''.join(stack)
-        
