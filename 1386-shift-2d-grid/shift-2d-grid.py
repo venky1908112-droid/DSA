@@ -3,16 +3,12 @@ class Solution:
         m = len(grid)
         n = len(grid[0])
         k = k % (m * n)
-        a = []
-        for row in grid:
-            a.extend(row)
-        a = a[-k : ] + a[ : -k]
-        x = 0
-        res = []
+        res = [[0] * n for _ in range(m)]
         for i in range(m):
-            temp = []
             for j in range(n):
-                temp.append(a[x])
-                x += 1
-            res.append(temp)
+                curr_idx = (i * n + j)
+                new_idx = (curr_idx + k) % (m * n)
+                r = new_idx // n
+                c = new_idx % n
+                res[r][c] = grid[i][j]
         return res
