@@ -5,5 +5,9 @@ class Solution:
         res = [[0] * n for _ in range(m)]
         for i in range(m):
             for j in range(n):
-                res[((i * n + j + k) % (m * n)) // n][(j + k) % n] = grid[i][j]
+                curr_idx = (i * n + j)
+                new_idx = (curr_idx + k) % (m * n)
+                r = new_idx // n
+                c = new_idx % n
+                res[r][c] = grid[i][j]
         return res
