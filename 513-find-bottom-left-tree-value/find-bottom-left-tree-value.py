@@ -6,14 +6,16 @@
 #         self.right = right
 class Solution:
     def findBottomLeftValue(self, root: Optional[TreeNode]) -> int:
-        ans = []
+        max_depth = 0
+        ans = 0
         def dfs(root, depth):
-            nonlocal ans
+            nonlocal ans, max_depth
             if not root:
                 return
-            if len(ans) == depth:
-                ans.append(root.val)
+            if max_depth == depth:
+                max_depth += 1
+                ans = root.val
             dfs(root.left, depth + 1)
             dfs(root.right, depth + 1)
         dfs(root, 0)
-        return ans[-1]
+        return ans
