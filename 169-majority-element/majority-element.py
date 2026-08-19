@@ -1,7 +1,13 @@
-from collections import Counter
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
-        freq = Counter(nums)
-        for key, val in freq.items():
-            if val > len(nums) // 2:
-                return key
+        val = -1
+        count = 0
+        for x in nums:
+            if count == 0:
+                val = x
+                count = 1
+            elif val == x:
+                count += 1
+            else:
+                count -= 1
+        return val
