@@ -19,13 +19,12 @@ class MyCircularQueue:
         if self.isEmpty():
             return False
         self.q[self.front] = -1
-
+        
         if self.front == self.rear:
             self.front = -1
             self.rear = -1
         else:
-            self.front = (self.front + 1) % self.n
-
+            self.front = (self.front + 1) % (self.n)
         return True
 
     def Front(self) -> int:
