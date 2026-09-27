@@ -8,22 +8,39 @@ class Solution:
         """
         Do not return anything, modify head in-place instead.
         """
-        a = []
-        temp = head
-        while temp:
-            a.append(temp)
-            temp = temp.next
+        slow = head
+        fast = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
         
-        left = 0
-        right = len(a) - 1
+        second = slow.next
+        slow.next = None
 
-        while left < right:
-            a[left].next = a[right]
-            left += 1
-
-            if left < right:
-                a[right].next = a[left]
-                right -= 1
+        prev = None
+        curr = second
+        while curr:
+            next_link = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next_link
         
-        a[left].next = None
-        return a[0]
+        second = prev
+
+
+        first = head
+
+        dummy = ListNode(0)
+        temp = dummy
+
+        while first or second:
+            if first:
+                temp.next = first
+                first = first.next
+                temp = temp.next
+            
+            if second:
+                temp.next = second
+                second = second.next
+                temp = temp.next
+        
