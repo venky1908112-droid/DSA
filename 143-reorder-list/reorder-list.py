@@ -8,14 +8,19 @@ class Solution:
         """
         Do not return anything, modify head in-place instead.
         """
+        #step 1 : find middle
         slow = head
         fast = head
+
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
         
         second = slow.next
         slow.next = None
+
+        
+        #step 2: reverse second part of linked list
 
         prev = None
         curr = second
@@ -24,12 +29,9 @@ class Solution:
             curr.next = prev
             prev = curr
             curr = next_link
-        
-        second = prev
-
-
+    
         first = head
-
+        second = prev
         dummy = ListNode(0)
         temp = dummy
 
@@ -43,4 +45,4 @@ class Solution:
                 temp.next = second
                 second = second.next
                 temp = temp.next
-        
+            
