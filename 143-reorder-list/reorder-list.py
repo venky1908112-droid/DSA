@@ -8,21 +8,21 @@ class Solution:
         """
         Do not return anything, modify head in-place instead.
         """
-        #step 1 : find middle
         a = []
-        curr = head
-        while curr:
-            a.append(curr)
-            curr = curr.next
-
+        temp = head
+        while temp:
+            a.append(temp)
+            temp = temp.next
+        
         left = 0
         right = len(a) - 1
 
         while left < right:
             a[left].next = a[right]
             left += 1
+
             if left < right:
                 a[right].next = a[left]
                 right -= 1
-        
+
         a[left].next = None
