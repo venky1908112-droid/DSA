@@ -9,40 +9,20 @@ class Solution:
         Do not return anything, modify head in-place instead.
         """
         #step 1 : find middle
-        slow = head
-        fast = head
-
-        while fast and fast.next:
-            slow = slow.next
-            fast = fast.next.next
-        
-        second = slow.next
-        slow.next = None
-
-        
-        #step 2: reverse second part of linked list
-
-        prev = None
-        curr = second
+        a = []
+        curr = head
         while curr:
-            next_link = curr.next
-            curr.next = prev
-            prev = curr
-            curr = next_link
-    
-        first = head
-        second = prev
-        dummy = ListNode(0)
-        temp = dummy
+            a.append(curr)
+            curr = curr.next
 
-        while first or second:
-            if first:
-                temp.next = first
-                first = first.next
-                temp = temp.next
-            
-            if second:
-                temp.next = second
-                second = second.next
-                temp = temp.next
-            
+        left = 0
+        right = len(a) - 1
+
+        while left < right:
+            a[left].next = a[right]
+            left += 1
+            if left < right:
+                a[right].next = a[left]
+                right -= 1
+        
+        a[left].next = None
