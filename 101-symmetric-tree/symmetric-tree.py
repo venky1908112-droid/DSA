@@ -6,6 +6,8 @@
 #         self.right = right
 class Solution:
     def isSymmetric(self, root: TreeNode | None) -> bool:
+        if not root:
+            return True
         def solve(left, right):
             if not left and not right:
                 return True
@@ -14,4 +16,5 @@ class Solution:
             if left.val != right.val:
                 return False
             return solve(left.left, right.right) and solve(left.right, right.left)
+
         return solve(root.left, root.right)
